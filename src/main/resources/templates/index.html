@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<!-- 可以看到 thymeleaf 是通过在标签里添加额外属性来绑定动态数据的 -->
+<!--     <title th:text="${title}">Title</title> -->
+<!-- 在/resources/static/js目录下创建一个hello.js 用如下语法依赖即可-->
+<script type="text/javascript" th:src="@{/js/hello.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+</head>
+<body>
+	<!--     <h1 th:text="${desc}">Hello World</h1> -->
+	<h2>局气后台管理系统</h2>
+	<!--     <p th:text="${aaa}">session</p> -->
+	<!--     <p th:text="${author?.name}"></p> -->
+	<!--     <p th:text="${author?.age}"></p> -->
+	<!--     <p th:text="${author?.email}"></p> -->
+	<div>
+	<input type="text" id = "phone">
+	<input type="password" id = "pwd">
+	<input type="button" id = "postData" value="登录">
+		
+	</div>
+</body>
+<script type="text/javascript">
+	$("#postData").click(function() {
+// 		var pp =$("#phone").val();
+// 		var dd = $("#pwd").val();
+		$.ajax({
+			url : '/employee/list',
+			data : JSON.stringify({
+// 				'phone':pp,
+// 				'pwd':dd
+// 				'appId':1
+				'page':1,
+				'size':20
+			}),
+			type : "post",
+			beforeSend: function (XMLHttpRequest) {
+         		XMLHttpRequest.setRequestHeader("token", "1&155013619903614e1b600b1fd579f47433b88e8d85291");
+             },
+			dataType : 'json',
+			contentType : 'application/json'
+		}, function() {
+
+		});
+	})
+</script>
+</html>
